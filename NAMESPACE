@@ -3,5 +3,7 @@ export(sparse_add, sparse_mult, sparse_sub, sparse_crossprod, sparsity, norm, st
 exportClasses(sparse_numeric)
 exportMethods("+", "-", "*", "mean", "plot", "show", "[", "[<-")
 
-# Import methods package
+# Import required packages
 import(methods)
+importFrom("graphics", "legend", "points")
+importFrom("stats", "na.omit")

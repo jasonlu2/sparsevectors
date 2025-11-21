@@ -27,6 +27,7 @@ setClass(
 #'
 #' @param object A sparse_numeric object to validate
 #' @return TRUE if valid, otherwise an error message
+#' @name sparse_numeric-validity
 setValidity("sparse_numeric", function(object) {
     if (length(object@value) != length(object@pos)) {
         return("value and pos must have the same length")
@@ -268,6 +269,7 @@ setMethod("-", c("sparse_numeric", "sparse_numeric"), function(e1, e2) sparse_su
 #'
 #' @param from A numeric vector to convert
 #' @return A sparse_numeric object
+#' @name coerce,numeric,sparse_numeric-method
 setAs("numeric", "sparse_numeric", function(from) {
     non_zero <- from != 0
     if (any(non_zero)) {
@@ -287,6 +289,7 @@ setAs("numeric", "sparse_numeric", function(from) {
 #'
 #' @param from A sparse_numeric object to convert
 #' @return A numeric vector
+#' @name coerce,sparse_numeric,numeric-method
 setAs("sparse_numeric", "numeric", function(from) {
     result <- numeric(from@length)
     if (length(from@pos) > 0) {
@@ -426,12 +429,22 @@ setGeneric("standardize", function(x, ...) standardGeneric("standardize"))
 #' @rdname standardize
 #' @export
 setMethod("standardize", "sparse_numeric", function(x, ...) {
-    # Calculate mean and standard deviation
+    # Calculate mean
     vec_mean <- mean(x)
-    # For sparse vectors, variance = (sum(x^2)/n - mean^2) where n is length
-    # But we need to be careful about the calculation
+
+    # Calculate sample standard deviation
+    # Sample variance = sum((x-mean)^2) / (n-1)
+    # For sparse vectors: variance = (sum(x^2) - n*mean^2) / (n-1)
+    if (x@length <= 1) {
+        # Cannot compute sample standard deviation for n <= 1
+        return(new("sparse_numeric",
+                  value = numeric(0),
+                  pos = integer(0),
+                  length = x@length))
+    }
+
     sum_sq <- sum(x@value^2)
-    variance <- (sum_sq / x@length) - vec_mean^2
+    variance <- (sum_sq - x@length * vec_mean^2) / (x@length - 1)
     vec_sd <- sqrt(variance)
 
     if (vec_sd == 0) {
@@ -446,7 +459,7 @@ setMethod("standardize", "sparse_numeric", function(x, ...) {
     new_values <- (x@value - vec_mean) / vec_sd
 
     # Keep only non-zero values after standardization
-    non_zero <- new_values != 0
+    non_zero <- abs(new_values) > .Machine$double.eps * 10  # Use small tolerance for floating point
     if (any(non_zero)) {
         new("sparse_numeric",
             value = new_values[non_zero],

@@ -1,4 +1,4 @@
-url: https://jasonlu.github.io/sparsevectors
+url: https://jasonlu2.github.io/sparsevectors
 
 template:
   bootstrap: 5
@@ -14,12 +14,9 @@ navbar:
       href: articles/index.html
 
 reference:
-  - title: "Classes"
+  - title: "Classes and Methods"
     contents:
-      - sparse_numeric-class
-
-  - title: "Arithmetic Operations"
-    contents:
+      - sparse_numeric
       - sparse_add
       - sparse_mult
       - sparse_sub
@@ -34,9 +31,3 @@ reference:
   - title: "Utility Functions"
     contents:
       - sparsity
-
-  - title: "Coercion and Display"
-    contents:
-      - as
-      - show
-      - plot

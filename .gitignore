@@ -11,6 +11,7 @@
 
 # Check results
 *.Rout
+..Rcheck/
 R CMD check output
 
 # pkgdown site
@@ -22,6 +23,7 @@ docs/
 \#*#
 *.bak
 *.tmp
+*.pdf
 
 # OS files
 .DS_Store

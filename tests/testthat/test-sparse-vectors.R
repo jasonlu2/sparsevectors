@@ -442,3 +442,105 @@ test_that("method dispatch works correctly", {
     result2 <- standardize(x, extra = "arg")
     expect_equal(result1, result2)
 })
+
+# Additional tests for 90% coverage
+
+# Test validity function edge cases
+test_that("validity function edge cases", {
+    # Test with empty sparse vector
+    empty_sparse <- new("sparse_numeric", value = numeric(0), pos = integer(0), length = 5L)
+    expect_true(validObject(empty_sparse))
+
+    # Test with single element
+    single_sparse <- new("sparse_numeric", value = 1, pos = 1L, length = 1L)
+    expect_true(validObject(single_sparse))
+})
+
+# Test standardize with edge cases
+test_that("standardize edge cases", {
+    # Test with length 1 (should return empty)
+    x <- as(5, "sparse_numeric")
+    result <- standardize(x)
+    expect_equal(result@value, numeric(0))
+    expect_equal(result@length, 1)
+
+    # Test with length 0
+    x <- as(numeric(0), "sparse_numeric")
+    result <- standardize(x)
+    expect_equal(result@length, 0)
+
+    # Test with very small numbers
+    x <- as(c(1e-10, 2e-10, 3e-10), "sparse_numeric")
+    result <- standardize(x)
+    expect_equal(mean(result), 0, tolerance = 1e-15)
+    expect_equal(norm(result), sqrt(2), tolerance = 1e-10)
+})
+
+# Test plot method more thoroughly
+test_that("plot method works", {
+    x <- as(c(1, 0, 2, 0, 3), "sparse_numeric")
+    y <- as(c(0, 4, 0, 5, 0), "sparse_numeric")
+
+    # Should not error
+    expect_silent(plot(x, y))
+})
+
+# Test coercion with more edge cases
+test_that("coercion comprehensive tests", {
+    # Test coercion from sparse to numeric with empty vector
+    empty_sparse <- new("sparse_numeric", value = numeric(0), pos = integer(0), length = 0L)
+    empty_dense <- as(empty_sparse, "numeric")
+    expect_equal(length(empty_dense), 0)
+
+    # Test coercion from numeric with very large numbers
+    large_num <- c(1e100, 0, -1e100, 0, 2e100)
+    sparse_large <- as(large_num, "sparse_numeric")
+    dense_back <- as(sparse_large, "numeric")
+    expect_equal(dense_back, large_num)
+})
+
+# Test arithmetic operations with empty results
+test_that("arithmetic operations with empty results", {
+    # sparse_mult that results in all zeros
+    x <- as(c(1, 0, 2), "sparse_numeric")
+    y <- as(c(0, 3, 0), "sparse_numeric")
+    result <- x * y
+    expect_equal(result@value, numeric(0))
+    expect_equal(result@pos, integer(0))
+    expect_equal(result@length, 3)
+
+    # sparse_add that results in zeros (should not happen with current implementation but test edge case)
+    x <- as(c(1, 0), "sparse_numeric")
+    y <- as(c(-1, 0), "sparse_numeric")
+    result <- x + y
+    expect_equal(result@value, numeric(0))  # The sum at position 1 becomes 0
+    expect_equal(result@length, 2)
+})
+
+# Test show method with empty vector
+test_that("show method with empty vector", {
+    empty_sparse <- new("sparse_numeric", value = numeric(0), pos = integer(0), length = 5L)
+    expect_output(show(empty_sparse), "Sparse numeric vector of length 5")
+    expect_output(show(empty_sparse), "All elements are zero")
+})
+
+# Test norm with very small numbers
+test_that("norm with very small numbers", {
+    x <- as(c(1e-20, 0, 2e-20), "sparse_numeric")
+    result <- norm(x)
+    expect_equal(result, sqrt(1e-20^2 + 2e-20^2))
+})
+
+# Test mean with very large numbers
+test_that("mean with very large numbers", {
+    x <- as(c(1e100, 0, 2e100), "sparse_numeric")
+    result <- mean(x)
+    expect_equal(result, (1e100 + 2e100) / 3)
+})
+
+# Test sparsity with decimal percentages
+test_that("sparsity with decimal percentages", {
+    x <- as(c(1, 0, 0, 0, 0, 0, 0), "sparse_numeric")  # 1 out of 7 = 14.2857%
+    result <- sparsity(x)
+    expect_equal(result, 100/7, tolerance = 1e-10)
+})
