@@ -25,12 +25,16 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown
           needs: website
 
+      - name: Install package
+        run: R CMD INSTALL .
+
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
-        shell: Rscript {0}
+        run: |
+          Rscript -e "pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)"
+        shell: bash
 
       - name: Deploy to GitHub Pages
         if: github.event_name != 'pull_request'

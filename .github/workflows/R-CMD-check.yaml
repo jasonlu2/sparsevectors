@@ -42,6 +42,11 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      - name: Install package dependencies
+        run: |
+          install.packages(c("testthat", "covr"), repos = "https://cran.rstudio.com/")
+        shell: Rscript {0}
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
