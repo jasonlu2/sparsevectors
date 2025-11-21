@@ -1,0 +1,32 @@
+# R package files
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Compiled binaries
+*.o
+*.so
+*.dll
+
+# Check results
+*.Rout
+R CMD check output
+
+# pkgdown site
+docs/
+
+# Temporary files
+*~
+.#*
+\#*#
+*.bak
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/

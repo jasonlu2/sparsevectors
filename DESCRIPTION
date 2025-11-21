@@ -1,0 +1,21 @@
+Package: sparsevectors
+Title: Sparse Numeric Vectors for R
+Version: 1.0.0
+Authors@R: person("Jason", "Lu", email = "jason.lu@duke.edu", role = c("aut", "cre"))
+Description: An R package providing an efficient sparse numeric vector class with
+    arithmetic operations, statistical methods, and standardization capabilities.
+    The sparse representation stores only non-zero values and their positions,
+    enabling memory-efficient computations on large vectors with many zeros.
+    This package includes methods for basic arithmetic operations (+, -, *),
+    statistical functions (mean, norm, standardize), and utility functions
+    (sparsity, cross product). Designed for SDS 375 Statistical Programming course.
+License: MIT
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports:
+    methods
+Suggests:
+    testthat (>= 3.0.0),
+    covr
+Config/testthat/edition: 3

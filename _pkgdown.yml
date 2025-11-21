@@ -1,0 +1,42 @@
+url: https://jasonlu.github.io/sparsevectors
+
+template:
+  bootstrap: 5
+
+navbar:
+  title: sparsevectors
+  left:
+    - text: Home
+      href: index.html
+    - text: Reference
+      href: reference/index.html
+    - text: Articles
+      href: articles/index.html
+
+reference:
+  - title: "Classes"
+    contents:
+      - sparse_numeric-class
+
+  - title: "Arithmetic Operations"
+    contents:
+      - sparse_add
+      - sparse_mult
+      - sparse_sub
+      - sparse_crossprod
+
+  - title: "Statistical Functions"
+    contents:
+      - mean.sparse_numeric
+      - norm
+      - standardize
+
+  - title: "Utility Functions"
+    contents:
+      - sparsity
+
+  - title: "Coercion and Display"
+    contents:
+      - as
+      - show
+      - plot

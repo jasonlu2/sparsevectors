@@ -1,0 +1,7 @@
+# Export all functions and classes
+export(sparse_add, sparse_mult, sparse_sub, sparse_crossprod, sparsity, norm, standardize)
+exportClasses(sparse_numeric)
+exportMethods("+", "-", "*", "mean", "plot", "show", "[", "[<-")
+
+# Import methods package
+import(methods)
