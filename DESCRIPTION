@@ -1,7 +1,7 @@
 Package: sparsevectors
 Title: Sparse Numeric Vectors for R
 Version: 1.0.0
-Authors@R: person("Jason", "Lu", email = "jason.lu@duke.edu", role = c("aut", "cre"))
+Authors@R: person("Jason", "Lu", email = "jason.lu@utexas.edu", role = c("aut", "cre"))
 Description: An R package providing an efficient sparse numeric vector class with
     arithmetic operations, statistical methods, and standardization capabilities.
     The sparse representation stores only non-zero values and their positions,

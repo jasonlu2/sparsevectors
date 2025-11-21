@@ -109,7 +109,7 @@ For detailed documentation of all functions, visit the [package website](https:/
 
 ## Development
 
-This package was developed as part of the SDS 375 Statistical Programming course at Duke University.
+This package was developed as part of the SDS 375 Data Product Development class.
 
 ## License
 
