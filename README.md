@@ -1,7 +1,7 @@
 # sparsevectors
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/jasonlu/sparsevectors/workflows/R-CMD-check/badge.svg)](https://github.com/jasonlu/sparsevectors/actions)
+[![R-CMD-check](https://github.com/jasonlu2/sparsevectors/workflows/R-CMD-check/badge.svg)](https://github.com/jasonlu2/sparsevectors/actions)
 <!-- badges: end -->
 
 An R package providing an efficient sparse numeric vector class with arithmetic operations, statistical methods, and standardization capabilities.
