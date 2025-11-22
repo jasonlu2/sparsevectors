@@ -24,7 +24,7 @@ reference:
 
   - title: "Statistical Functions"
     contents:
-      - mean.sparse_numeric
+      - mean,sparse_numeric-method
       - norm
       - standardize
 
