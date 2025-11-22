@@ -17,10 +17,18 @@ reference:
   - title: "Classes and Methods"
     contents:
       - sparse_numeric-class
+      - coerce,numeric,sparse_numeric-method
+      - coerce,sparse_numeric,numeric-method
+      - plot,sparse_numeric,sparse_numeric-method
+      - show,sparse_numeric-method
       - sparse_add
-      - sparse_mult
-      - sparse_sub
+      - sparse_add,sparse_numeric,sparse_numeric-method
       - sparse_crossprod
+      - sparse_crossprod,sparse_numeric,sparse_numeric-method
+      - sparse_mult
+      - sparse_mult,sparse_numeric,sparse_numeric-method
+      - sparse_sub
+      - sparse_sub,sparse_numeric,sparse_numeric-method
 
   - title: "Statistical Functions"
     contents:
@@ -31,3 +39,5 @@ reference:
   - title: "Utility Functions"
     contents:
       - sparsity
+      - sparse-arithmetic
+      - sparse_numeric-validity
