@@ -16,7 +16,7 @@ navbar:
 reference:
   - title: "Classes and Methods"
     contents:
-      - sparse_numeric
+      - sparse_numeric-class
       - sparse_add
       - sparse_mult
       - sparse_sub
